@@ -1,0 +1,474 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: test
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/cohere:0.0.8@1456818eb78f25c1a25e91809cecbd78e5523d39868dcb78607e625913b5e4fe
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.5.1@f461983acf9bdec505fb9dc67d79ae36fe67658669a4e7468b5daab126e30ab6
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: f64f84b5-3378-4227-98c9-eeabfe29d9a8
+    name: Sorry
+    selector:
+    - env
+    - Sorry
+    value: Sorry,I don't know
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: if-else
+      id: 1756089071069-source-1756101655457-target
+      selected: false
+      source: '1756089071069'
+      sourceHandle: source
+      target: '1756101655457'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1756101655457-true-1755853497891-target
+      selected: false
+      source: '1756101655457'
+      sourceHandle: 'true'
+      target: '1755853497891'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1756101655457-false-1756101692897-target
+      selected: false
+      source: '1756101655457'
+      sourceHandle: 'false'
+      target: '1756101692897'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1755852680762-source-1756099569304-target
+      selected: false
+      source: '1755852680762'
+      sourceHandle: source
+      target: '1756099569304'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1756099569304-1-1756089071069-target
+      selected: false
+      source: '1756099569304'
+      sourceHandle: '1'
+      target: '1756089071069'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1756099569304-1756099668256-1756275441272-target
+      source: '1756099569304'
+      sourceHandle: '1756099668256'
+      target: '1756275441272'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1755853497891-source-1756275794748-target
+      source: '1755853497891'
+      sourceHandle: source
+      target: '1756275794748'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1756101692897-source-1756275822101-target
+      source: '1756101692897'
+      sourceHandle: source
+      target: '1756275822101'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1756099569304-2-1756275833357-target
+      source: '1756099569304'
+      sourceHandle: '2'
+      target: '1756275833357'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1755852680762'
+      position:
+        x: 30
+        y: 305
+      positionAbsolute:
+        x: 30
+        y: 305
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1755853497891.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 105
+      id: '1756275794748'
+      position:
+        x: 1882
+        y: 436
+      positionAbsolute:
+        x: 1882
+        y: 436
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1756089071069'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 93e9b4f7-11ed-4d7d-a678-364e24e037f6
+          role: system
+          text: You are a customer service representative, answering questions based
+            on {{#context#}}
+        - id: f029e8db-81ce-485d-b2ff-1703de5c3b5c
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        structured_output_enabled: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1755853497891'
+      position:
+        x: 1548
+        y: 436
+      positionAbsolute:
+        x: 1548
+        y: 436
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - vJ+yg0Be+/+xA09J1Gq9fvzGNgTkL80Fu0sDtfcPLKBnf9MlhFLAyshrVegBgI2c
+        desc: ''
+        metadata_filtering_mode: disabled
+        metadata_model_config:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: rerank-english-v3.0
+            provider: langgenius/cohere/cohere
+          score_threshold: null
+          top_k: 6
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: gemini-embedding-exp-03-07
+              embedding_provider_name: langgenius/gemini/google
+              vector_weight: 0.7
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 92
+      id: '1756089071069'
+      position:
+        x: 698
+        y: 435
+      positionAbsolute:
+        x: 698
+        y: 435
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1'
+          name: question about Product
+        - id: '2'
+          name: question about logistics
+        - id: '1756099668256'
+          name: other question
+        desc: ''
+        instruction: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 问题分类器
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 210
+      id: '1756099569304'
+      position:
+        x: 364
+        y: 305
+      positionAbsolute:
+        x: 364
+        y: 305
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#env.Sorry#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 106
+      id: '1756275441272'
+      position:
+        x: 698
+        y: 247.85714285714283
+      positionAbsolute:
+        x: 698
+        y: 247.85714285714283
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 21568bc4-9d3b-4097-8bd9-a6b4569eb435
+            value: ''
+            varType: array[object]
+            variable_selector:
+            - '1756089071069'
+            - result
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 126
+      id: '1756101655457'
+      position:
+        x: 1032
+        y: 436
+      positionAbsolute:
+        x: 1032
+        y: 436
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 24bc2efd-7d2c-499c-8536-83e5e6a75020
+          role: system
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM 2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1756101692897'
+      position:
+        x: 1548
+        y: 566
+      positionAbsolute:
+        x: 1548
+        y: 566
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1756101692897.text#}}'
+        desc: ''
+        selected: true
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 105
+      id: '1756275822101'
+      position:
+        x: 1852
+        y: 566
+      positionAbsolute:
+        x: 1852
+        y: 566
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#env.Sorry#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 4
+        type: answer
+        variables: []
+      height: 106
+      id: '1756275833357'
+      position:
+        x: 715.4285714285711
+        y: 656.0000000000001
+      positionAbsolute:
+        x: 715.4285714285711
+        y: 656.0000000000001
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -53.79999999999961
+      y: 61.799999999999955
+      zoom: 0.7

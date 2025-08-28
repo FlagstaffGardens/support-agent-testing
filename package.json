@@ -1,0 +1,19 @@
+{
+  "name": "support-agent-testing",
+  "version": "1.0.0",
+  "description": "Dify chatbot support agent testing interface",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'No build step required for static site'",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "dify",
+    "chatbot",
+    "support",
+    "ai"
+  ],
+  "author": "Ethan",
+  "license": "MIT"
+}

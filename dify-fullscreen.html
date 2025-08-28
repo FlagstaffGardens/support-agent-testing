@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Agent Test - Full Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #FFEAD5 0%, #FFE5B4 100%);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            background: #FFEAD5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .test-info {
+            background: #e3f2fd;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #1976d2;
+            border-bottom: 1px solid #bbdefb;
+            text-align: center;
+        }
+        
+        .chat-container {
+            height: calc(100vh - 120px);
+            width: 100%;
+            position: relative;
+        }
+        
+        .chat-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+            display: block;
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            transition: opacity 0.3s ease;
+        }
+        
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1C64F2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .app-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+            
+            .test-info {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="app-icon">🤖</div>
+        <h1>Support Agent Test</h1>
+    </div>
+    
+    <div class="test-info">
+        <strong>Test Categories:</strong> 
+        📦 Product questions (triggers knowledge base) | 
+        🚚 Logistics questions (returns "Sorry, I don't know") | 
+        ❓ Other topics (returns "Sorry, I don't know")
+    </div>
+    
+    <div class="chat-container">
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading chatbot...</div>
+        </div>
+        
+        <iframe
+            id="chatIframe"
+            class="chat-iframe"
+            src="https://udify.app/chatbot/DtQK1IKVDcOrhElP"
+            allow="microphone; camera"
+            title="Support Agent Chatbot"
+            onload="hideLoading()">
+        </iframe>
+    </div>
+
+    <script>
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 1000); // Small delay to ensure iframe content is ready
+        }
+        
+        // Fallback to hide loading after 5 seconds
+        setTimeout(hideLoading, 5000);
+        
+        // Handle iframe errors
+        document.getElementById('chatIframe').onerror = function() {
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = overlay.querySelector('.loading-text');
+            const spinner = overlay.querySelector('.spinner');
+            
+            spinner.style.display = 'none';
+            loadingText.textContent = 'Failed to load chatbot. Please refresh the page.';
+            loadingText.style.color = '#d32f2f';
+        };
+        
+        // Prevent right-click on iframe for cleaner UX
+        document.getElementById('chatIframe').addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
